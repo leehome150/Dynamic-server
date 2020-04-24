@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>登录页面</title>
+  </head>
+  <body>
+    <form id="signIn">
+      <div>
+        <label>用户名<input type="text" name="name" /></label>
+      </div>
+      <div>
+        <label>密码<input type="password" name="password" /></label>
+      </div>
+      <div><button type="submit">登录</button></div>
+    </form>
+    <script src="https://cdn.bootcss.com/jquery/3.5.0/jquery.min.js"></script>
+
+    <script>
+      const $form = $("#signIn");
+      $form.on("submit", (e) => {
+        e.preventDefault();
+        const name = $form.find("input[name='name']").val(); //属性选择器选取name值='name'的input元素
+        const password = $form.find("input[name='password']").val();
+        console.log(name, password);
+        $.ajax({
+          method: "POST",
+          url: "/sign-in",
+          contentType: "text/json,charset=UTF-8",
+          data: JSON.stringify({ name, password }),
+        }).then(() => {
+          alert("登录成功");
+          window.open("./home.html");
+        });
+      });
+    </script>
+  </body>
+</html>
